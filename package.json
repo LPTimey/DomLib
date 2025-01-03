@@ -1,0 +1,32 @@
+{
+  "name": "dom_lib",
+  "version": "0.0.1",
+  "description": "A simple JS(Doc) GuiRender Library wrapping HTMLElements with chainable expressions",
+  "main": "src/dom_lib.mjs",
+  "directories": {
+    "example": "examples"
+  },
+  "scripts": {
+    "dev": "echo \"Error: no dev specified\" && exit 1",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Tim",
+  "license": "MIT",
+  "type": "module",
+  "private": false,
+  "engines": {
+    "node": ">= 14.0.0",
+    "npm": ">= 6.0.0"
+  },
+  "homepage": "",
+  "repository": {
+    "type": "git",
+    "url": ""
+  },
+  "bugs": "",
+  "keywords": [],
+  "contributors": [],
+  "dependencies": {
+    "dom_lib": "file:"
+  }
+}

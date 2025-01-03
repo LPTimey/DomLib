@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            padding: 5rem;
+        }
+
+        .test {
+            border: 5px solid red;
+        }
+
+        .test2 {
+            background-color: black;
+            color: white;
+        }
+    </style>
+    <script type="module" src="../src/dom_lib.mjs"></script>
+</head>
+
+<body>
+    <script type="module">
+        import { element } from "../src/dom_lib.mjs";
+        element({
+            kind: "p",
+            innerText: "Hello from inline a Js Module"
+        }).render()
+        element({
+            kind: "a",
+            innerText: "This is recommended tho",
+            attributes: [{ "href": "./" }, { "data-time": "12:00" }]
+        }).render()
+    </script>
+</body>
+
+</html>

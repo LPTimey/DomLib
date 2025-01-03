@@ -49,6 +49,15 @@ export class Element {
     }
 
     /**
+     * @param {...{[A: string]:string}} attributes 
+     * @returns {Element<E>}
+     */
+    setAttributes(...attributes) {
+        attributes.flatMap(Object.entries).forEach(([key, value]) => this.setAttribute(key, value))
+        return this;
+    }
+
+    /**
      * 
      * @param {string} cssClass 
      * @returns {Element<E>}
@@ -222,19 +231,13 @@ export function element1(kind, ...children) {
 }
 
 /**
- * @typedef {Object} Attribute
- * @prop {string} key
- * @prop {string} value
- */
-
-/**
  * @template {keyof HTMLElementTagNameMap} K
  * @typedef {Object} ElementParams
  * @prop {K} kind
  * @prop {string} [id]
  * @prop {string[]} [classes]
- * @prop {Attribute[]} [attributes]
- * @prop {{[K in keyof CSSStyleDeclaration]:string}} [style]
+ * @prop {{[A: string]:string}} [attributes]
+ * @prop {{[C in keyof CSSStyleDeclaration]:string}} [style]
  * @prop {ElementParams<keyof HTMLElementTagNameMap>[]} [children] Children before inner Text
  * @prop {string>[]} [innerText]
  * @prop {ElementParams<keyof HTMLElementTagNameMap>[]} [children2] Children after inner Text
@@ -254,7 +257,7 @@ export function element2({ kind, id, classes, attributes, style, children = [], 
         el.addClass(...classes)
     }
     if (attributes != undefined && attributes.length > 0) {
-        el.addClass(...attributes)
+        el.setAttributes(...attributes)
     }
     if (style != undefined) {
         el.setStyle(style)
@@ -289,6 +292,9 @@ export function element(param, ...children) {
         return element2(param);
     }
     return element1(param, ...children);
+}
+if (window) {
+    window.element = element
 }
 
 /**

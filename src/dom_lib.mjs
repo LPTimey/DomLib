@@ -1,6 +1,7 @@
 'use strict';
 
 /**
+ * Wrapper over the native HTMLElement
  * @template {HTMLElement} E
  */
 export class Element {
@@ -9,6 +10,10 @@ export class Element {
      * @param {E} element 
      */
     constructor(element) {
+        /**
+         * Internal Element
+         * @type {E}
+         */
         this.element = element;
     }
 
@@ -20,7 +25,9 @@ export class Element {
     }
 
     /**
-     * @param {string} key 
+     * Returns value of the given Attribute-key or null
+     * @param {string} key key to be looked up
+     * @returns {null|string}
     */
     getAttr(key) {
         return this.element.getAttribute(key);
@@ -233,19 +240,18 @@ export function element1(kind, ...children) {
 /**
  * @template {keyof HTMLElementTagNameMap} K
  * @typedef {Object} ElementParams
- * @prop {K} kind
- * @prop {string} [id]
- * @prop {string[]} [classes]
- * @prop {{[A: string]:string}} [attributes]
- * @prop {{[C in keyof CSSStyleDeclaration]:string}} [style]
+ * @prop {K} kind What Kind of HTMLElement to create
+ * @prop {string} [id] The Id-Attribute of the Element
+ * @prop {string[]} [classes] The Class-Attribute of the Element
+ * @prop {{[A: string]:string}} [attributes] Other Attributes of the Element
+ * @prop {{[C in keyof CSSStyleDeclaration]:string}} [style] The (Inline)Style-Attribute of the Element
  * @prop {ElementParams<keyof HTMLElementTagNameMap>[]} [children] Children before inner Text
- * @prop {string>[]} [innerText]
+ * @prop {string>[]} [innerText] The Inner Text of the Element (Warning: not sanitized)
  * @prop {ElementParams<keyof HTMLElementTagNameMap>[]} [children2] Children after inner Text
 */
 /**
  * @template {keyof HTMLElementTagNameMap} K
- * @param {ElementParams<K>} param0 
- * @param {...Element<HTMLElement>} children 
+ * @param {ElementParams<K>} param0 description of the Element that should be created
  * @returns {Element<HTMLElementTagNameMap[K]>}
  */
 export function element2({ kind, id, classes, attributes, style, children = [], innerText, children2 = [] }) {
@@ -272,19 +278,19 @@ export function element2({ kind, id, classes, attributes, style, children = [], 
 
 /**
  * @overload
- * @param {ElementParams<K>} param
+ * @param {ElementParams<K>} param description of the Element that should be created
  * @returns {Element<HTMLElementTagNameMap[K]>}
  */
 /** 
  * @overload
- * @param {K} param
- * @param {...Element<HTMLElement>} children
+ * @param {K} param kind of HTMLElement to be created
+ * @param {...Element<HTMLElement>} children children of the Element to be created
  * @returns {Element<HTMLElementTagNameMap[K]>}
 */
 /**
  * @template {keyof HTMLElementTagNameMap} K
- * @param {ElementParams<K>|K} param 
- * @param {...Element<HTMLElement>} [children] 
+ * @param {ElementParams<K>|K} param description of the Element that should be created | Kind of HTMLElement to be created
+ * @param {...Element<HTMLElement>} [children] undefined | children of the Element to be created
  * @returns {Element<HTMLElementTagNameMap[K]>}
  */
 export function element(param, ...children) {
